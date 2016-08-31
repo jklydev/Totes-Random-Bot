@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Bot
 
 main :: IO ()
-main = someFunc
+main = print "hey"

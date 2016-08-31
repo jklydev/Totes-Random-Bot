@@ -15,8 +15,14 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Bot, Info
   build-depends:       base >= 4.7 && < 5
+                     , bytestring
+                     , HTTP
+                     , http-client
+                     , http-client-tls
+                     , http-types
+                     , authenticate-oauth
   default-language:    Haskell2010
 
 executable totes-random-bot-exe
