@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Bot, Info
+  exposed-modules:     Bot, Info, API
   build-depends:       base >= 4.7 && < 5
                      , bytestring
                      , HTTP
@@ -38,7 +38,6 @@ test-suite totes-random-bot-test
   hs-source-dirs:      test
   main-is:             Spec.hs
   build-depends:       base
-                     , totes-random-bot
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 

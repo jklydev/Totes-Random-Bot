@@ -12,20 +12,27 @@ import Web.Authenticate.OAuth
 import Info
 
 
-oauthTwitter :: OAuth
-oauthTwitter =
-  newOAuth { oauthServerName      = "twitter"
+oauthTwitter :: IO OAuth
+oauthTwitter = do
+  apiKey' <- apiKey
+  apiSecret' <- apiSecret
+  let oauth =newOAuth { oauthServerName      = "twitter"
            , oauthRequestUri      = "https://api.twitter.com/oauth/request_token"
            , oauthAccessTokenUri  = "https://api.twitter.com/oauth/access_token"
            , oauthAuthorizeUri    = "https://api.twitter.com/oauth/authorize"
            , oauthSignatureMethod = HMACSHA1
-           , oauthConsumerKey     = apiKey
-           , oauthConsumerSecret  = apiSecret
+           , oauthConsumerKey     = apiKey'
+           , oauthConsumerSecret  = apiSecret'
            , oauthVersion         = OAuth10a
            }
+  return oauth
 
 signAuth :: Request -> IO Request
-signAuth = signOAuth oauthTwitter $ newCredential userKey userSecret
+signAuth request = do
+  userKey' <- userKey
+  userSecret' <- userSecret
+  oauthTwitter' <- oauthTwitter
+  signOAuth oauthTwitter' (newCredential userKey' userSecret') request
 
 tweet :: String -> IO (Response BL.ByteString)
 tweet status = do
