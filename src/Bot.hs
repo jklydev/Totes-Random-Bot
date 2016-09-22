@@ -2,6 +2,9 @@
 
 module Bot where
 
+import Data.ByteString
+import System.Environment
+import qualified Data.ByteString.Char8 as B8
 import qualified Data.ByteString.Lazy as BL
 import qualified Network.HTTP.Base as HTTP
 import Network.HTTP.Client
@@ -9,30 +12,29 @@ import Network.HTTP.Client.TLS
 import Network.HTTP.Types
 import Web.Authenticate.OAuth
 
-import Info
-
+getEnv' = (B8.pack <$>) . getEnv
 
 oauthTwitter :: IO OAuth
 oauthTwitter = do
-  apiKey' <- apiKey
-  apiSecret' <- apiSecret
+  apiKey <- getEnv' "OAUTH_ACCESS_TOKEN"
+  apiSecret <- getEnv' "OAUTH_ACCESS_SECRET"
   let oauth =newOAuth { oauthServerName      = "twitter"
            , oauthRequestUri      = "https://api.twitter.com/oauth/request_token"
            , oauthAccessTokenUri  = "https://api.twitter.com/oauth/access_token"
            , oauthAuthorizeUri    = "https://api.twitter.com/oauth/authorize"
            , oauthSignatureMethod = HMACSHA1
-           , oauthConsumerKey     = apiKey'
-           , oauthConsumerSecret  = apiSecret'
+           , oauthConsumerKey     = apiKey
+           , oauthConsumerSecret  = apiSecret
            , oauthVersion         = OAuth10a
            }
   return oauth
 
 signAuth :: Request -> IO Request
 signAuth request = do
-  userKey' <- userKey
-  userSecret' <- userSecret
+  userKey <- getEnv' "OAUTH_CONSUMER_KEY"
+  userSecret <- getEnv' "OAUTH_CONSUMER_SECRET"
   oauthTwitter' <- oauthTwitter
-  signOAuth oauthTwitter' (newCredential userKey' userSecret') request
+  signOAuth oauthTwitter' (newCredential userKey userSecret) request
 
 tweet :: String -> IO (Response BL.ByteString)
 tweet status = do
