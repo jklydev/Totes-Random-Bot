@@ -17,9 +17,10 @@ getEnv' = (B8.pack <$>) . getEnv
 
 oauthTwitter :: IO OAuth
 oauthTwitter = do
-  apiKey <- getEnv' "OAUTH_ACCESS_TOKEN"
-  apiSecret <- getEnv' "OAUTH_ACCESS_SECRET"
-  let oauth = newOAuth { oauthServerName      = "twitter"
+  apiKey <- getEnv' "API_KEY"
+  apiSecret <- getEnv' "API_SECRET"
+  let oauth = newOAuth {
+             oauthServerName      = "twitter"
            , oauthRequestUri      = "https://api.twitter.com/oauth/request_token"
            , oauthAccessTokenUri  = "https://api.twitter.com/oauth/access_token"
            , oauthAuthorizeUri    = "https://api.twitter.com/oauth/authorize"
@@ -32,15 +33,14 @@ oauthTwitter = do
 
 signAuth :: Request -> IO Request
 signAuth request = do
-  userKey <- getEnv' "OAUTH_CONSUMER_KEY"
-  userSecret <- getEnv' "OAUTH_CONSUMER_SECRET"
+  userKey <- getEnv' "ACCESS_TOKEN"
+  userSecret <- getEnv' "ACCESS_SECRET"
   oauthTwitter' <- oauthTwitter
   signOAuth oauthTwitter' (newCredential userKey userSecret) request
 
 tweet :: String -> IO (Response BL.ByteString)
 tweet status = do
   url <- parseUrl $ "https://api.twitter.com/1.1/statuses/update.json?status=" `Data.Monoid.mappend` (HTTP.urlEncode status)
-  print url
   req <- signAuth url{ method = "POST" }
   manager <- newManager tlsManagerSettings
   httpLbs req manager
