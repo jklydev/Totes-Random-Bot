@@ -5,12 +5,9 @@ import API
 import Control.Concurrent (threadDelay)
 
 main :: IO ()
-main = tweetLoop
-
-tweetLoop :: IO ()
-tweetLoop = do
+main = do
     bits <- getNewBits
     tweet bits
     float <- getNewFloat
     threadDelay $ ceiling ((read float :: Double) * 86400000000.0)
-    tweetLoop
+    main
