@@ -40,7 +40,7 @@ signAuth request = do
 
 tweet :: String -> IO (Response BL.ByteString)
 tweet status = do
-  url <- parseUrl $ "https://api.twitter.com/1.1/statuses/update.json?status=" `Data.Monoid.mappend` (HTTP.urlEncode status)
+  url <- parseUrl $ "https://api.twitter.com/1.1/statuses/update.json?status=" <> (HTTP.urlEncode status)
   req <- signAuth url{ method = "POST" }
   manager <- newManager tlsManagerSettings
   httpLbs req manager

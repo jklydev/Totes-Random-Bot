@@ -7,9 +7,10 @@ import Control.Concurrent (threadDelay)
 main :: IO ()
 main = tweetLoop
 
-
-tweetLoop = do bits <- getNewBits
-               float <- getNewFloat
-               tweet bits
-               threadDelay $ ceiling ((read float :: Double) * 86400000000.0)
-               tweetLoop
+tweetLoop :: IO ()
+tweetLoop = do
+    bits <- getNewBits
+    tweet bits
+    float <- getNewFloat
+    threadDelay $ ceiling ((read float :: Double) * 86400000000.0)
+    tweetLoop
