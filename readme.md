@@ -13,6 +13,6 @@ How?
 Much like the original Totes Random, Totes Random Bot is written in Haskell using stack. It hits the `/bits` endpoint of the Totes Random api in order to get 140 random bits, and posts them to Twitter using the api. It then hits the `/float` endpoint to get a random float (n) between 0 and 1, and waits for (n * 24) hours before it tweets again. 
 
 
-<img src="http://www.jkiely.co.uk/images/ouroboros.jpg">
+<img src="http://www.jkly.io/images/ouroboros.jpg">
 
 <sub>Image credit goes to <a href=http://oglaf.com/>Oglaf (nsfw).</a> Buy the t-shirt from them at <a href=https://www.topatoco.com/merchant.mvc?Screen=PROD&Store_Code=TO&Product_Code=OG-OUROBOROS&Category_Code=OG>Topatoco.</a></sub>
