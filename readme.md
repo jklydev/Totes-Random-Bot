@@ -15,4 +15,4 @@ Much like the original Totes Random, Totes Random Bot is written in Haskell usin
 
 <img src="http://www.jkly.io/images/ouroboros.jpg">
 
-<sub>Image credit goes to <a href=http://oglaf.com/>Oglaf (nsfw).</a> Buy the t-shirt from them at <a href=https://www.topatoco.com/merchant.mvc?Screen=PROD&Store_Code=TO&Product_Code=OG-OUROBOROS&Category_Code=OG>Topatoco.</a></sub>
+<sub>Image credit goes to <a href=http://oglaf.com/>Oglaf (nsfw).</a> Buy the t-shirt from them at <a href="https://www.topatoco.com/merchant.mvc?Screen=PROD&Store_Code=TO&Product_Code=OG-OUROBOROS&Category_Code=OG">Topatoco.</a></sub>
